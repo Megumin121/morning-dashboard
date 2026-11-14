@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -120,7 +119,7 @@ footer {
 
 <script>
 
-// ЧАСЫ И ДАТА
+// ЧАСЫ
 
 function updateClock() {
   const now = new Date();
@@ -145,7 +144,27 @@ updateClock();
 setInterval(updateClock, 1000);
 
 
-// ЗАГРУЗКА ПОГОДЫ ИЗ GITHUB
+// ОПИСАНИЕ ПОГОДЫ
+
+function weatherDescription(symbol) {
+  if (!symbol) return "Погодные условия неизвестны";
+
+  const code = symbol.toLowerCase();
+
+  if (code.includes("thunder")) return "⛈️ Гроза";
+  if (code.includes("snow")) return "❄️ Снег";
+  if (code.includes("sleet")) return "🌨️ Мокрый снег";
+  if (code.includes("rain")) return "🌧️ Дождь";
+  if (code.includes("fog")) return "🌫️ Туман";
+  if (code.includes("clear")) return "☀️ Ясно";
+  if (code.includes("partlycloudy")) return "🌤️ Переменная облачность";
+  if (code.includes("cloudy")) return "☁️ Облачно";
+
+  return "Переменная погода";
+}
+
+
+// ЗАГРУЗКА ПОГОДЫ
 
 async function loadWeather() {
   const status = document.getElementById("weatherStatus");
@@ -158,7 +177,7 @@ async function loadWeather() {
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка загрузки погоды");
+      throw new Error("Ошибка загрузки");
     }
 
     const data = await response.json();
@@ -175,13 +194,19 @@ async function loadWeather() {
       Math.round(data.temperature) + "°";
 
     document.getElementById("description").textContent =
-      "Сейчас в Уфе";
+      weatherDescription(data.symbol);
 
     document.getElementById("feels").textContent =
       "Ощущается как " + Math.round(data.feels_like) + "°";
 
-    document.getElementById("weatherDetails").textContent =
-      "Ветер: " + data.wind_speed + " м/с";
+    const precipitation =
+      typeof data.precipitation === "number"
+        ? data.precipitation.toFixed(1) + " мм"
+        : "Нет данных";
+
+    document.getElementById("weatherDetails").innerHTML =
+      "Ветер: " + data.wind_speed.toFixed(1) + " м/с" +
+      "<br>Осадки за ближайший час: " + precipitation;
 
     const updated = new Date(data.updated);
 
@@ -194,23 +219,19 @@ async function loadWeather() {
       });
 
   } catch (error) {
-
     document.getElementById("description").textContent =
       "Не удалось загрузить погоду";
 
     document.getElementById("feels").textContent =
       "Проверь подключение к интернету";
 
-    status.textContent =
-      "Попробуем загрузить данные позже";
+    status.textContent = "Попробуем загрузить данные позже";
 
     console.error(error);
   }
 }
 
 loadWeather();
-
-// Проверяем обновление каждые 30 минут
 setInterval(loadWeather, 30 * 60 * 1000);
 
 </script>
