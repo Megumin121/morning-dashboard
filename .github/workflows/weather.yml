@@ -3,7 +3,7 @@ name: Update Ufa weather
 on:
   workflow_dispatch:
   schedule:
-    - cron: "17 */6 * * *"
+    - cron: "17 * * * *"
 
 permissions:
   contents: write
@@ -38,13 +38,20 @@ jobs:
           with urllib.request.urlopen(request, timeout=30) as response:
               data = json.load(response)
 
-          current = data["properties"]["timeseries"][0]["data"]["instant"]["details"]
+          current = data["properties"]["timeseries"][0]
+          details = current["data"]["instant"]["details"]
+
+          next_hour = current["data"].get("next_1_hours", {})
+          next_details = next_hour.get("details", {})
+          next_summary = next_hour.get("summary", {})
 
           result = {
               "city": "Уфа",
-              "temperature": current.get("air_temperature"),
-              "feels_like": current.get("air_temperature"),
-              "wind_speed": current.get("wind_speed"),
+              "temperature": details.get("air_temperature"),
+              "feels_like": details.get("air_temperature"),
+              "wind_speed": details.get("wind_speed"),
+              "symbol": next_summary.get("symbol_code"),
+              "precipitation": next_details.get("precipitation_amount"),
               "updated": datetime.now(timezone.utc).isoformat(),
           }
 
