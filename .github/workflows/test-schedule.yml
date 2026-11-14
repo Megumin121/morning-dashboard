@@ -14,7 +14,7 @@ jobs:
           python - <<'PY'
           import urllib.request
 
-          url = "https://schedule.uksivt.ru/public?id=67&mode=group"
+          url = "https://schedule.uksivt.ru/public?week=2026-09-07&mode=group&id=67&semester=1"
 
           request = urllib.request.Request(
               url,
@@ -30,9 +30,11 @@ jobs:
                   print("STATUS:", response.status)
                   print("PAGE SIZE:", len(html))
                   print("24Ю-3 FOUND:", "24Ю-3" in html)
-                  print("PAGE TITLE:", html[:500])
+                  print("FULL HTML:")
+                  print(html)
 
           except Exception as error:
               print("ERROR:", repr(error))
               raise
           PY
+ 
