@@ -3,5 +3,7 @@
   "temperature": 4.0,
   "feels_like": 4.0,
   "wind_speed": 7.6,
-  "updated": "2026-11-14T18:28:17.762897+00:00"
+  "symbol": "rain",
+  "precipitation": 0.7,
+  "updated": "2026-11-14T18:42:56.982853+00:00"
 }
