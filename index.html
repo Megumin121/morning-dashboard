@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Моё утро</title>
+
 <style>
 * { box-sizing: border-box; }
 
@@ -75,6 +76,7 @@ footer {
 
 <body>
 <main>
+
   <header>
     <div class="small" id="date"></div>
     <h1>Доброе утро!</h1>
@@ -83,6 +85,7 @@ footer {
 
   <section class="card">
     <h2>Погода · Уфа</h2>
+
     <div class="weather">
       <div class="temperature" id="temperature">—°</div>
       <div>
@@ -90,6 +93,7 @@ footer {
         <div class="muted" id="feels">Получаем данные</div>
       </div>
     </div>
+
     <div id="weatherDetails"></div>
     <div class="muted" id="weatherStatus"></div>
   </section>
@@ -111,9 +115,13 @@ footer {
   </section>
 
   <footer>ТВОЯ ЛИЧНАЯ УТРЕННЯЯ ПАНЕЛЬ</footer>
+
 </main>
 
 <script>
+
+// ЧАСЫ И ДАТА
+
 function updateClock() {
   const now = new Date();
 
@@ -136,33 +144,8 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
-function weatherDescription(code) {
-  const descriptions = {
-    0: "Ясно ☀️",
-    1: "Преимущественно ясно",
-    2: "Переменная облачность",
-    3: "Пасмурно ☁️",
-    45: "Туман",
-    48: "Изморозь",
-    51: "Лёгкая морось",
-    53: "Морось",
-    55: "Сильная морось",
-    61: "Небольшой дождь 🌧️",
-    63: "Дождь",
-    65: "Сильный дождь",
-    71: "Небольшой снег ❄️",
-    73: "Снег",
-    75: "Сильный снег",
-    80: "Ливень",
-    81: "Сильный ливень",
-    82: "Очень сильный ливень",
-    95: "Гроза ⛈️",
-    96: "Гроза с градом",
-    99: "Сильная гроза с градом"
-  };
 
-  return descriptions[code] || "Переменная погода";
-}
+// ЗАГРУЗКА ПОГОДЫ ИЗ GITHUB
 
 async function loadWeather() {
   const status = document.getElementById("weatherStatus");
@@ -170,61 +153,66 @@ async function loadWeather() {
   try {
     status.textContent = "Обновляем данные...";
 
-    const url =
-      "https://api.open-meteo.com/v1/forecast" +
-      "?latitude=54.7388" +
-      "&longitude=55.9721" +
-      "&current=temperature_2m,apparent_temperature,weather_code,wind_speed_10m" +
-      "&hourly=precipitation_probability" +
-      "&daily=temperature_2m_max,temperature_2m_min" +
-      "&timezone=Asia%2FYekaterinburg";
+    const response = await fetch("./weather.json?t=" + Date.now(), {
+      cache: "no-store"
+    });
 
-    const response = await fetch(url);
-
-    if (!response.ok) throw new Error("Ошибка сервера");
+    if (!response.ok) {
+      throw new Error("Ошибка загрузки погоды");
+    }
 
     const data = await response.json();
-    const current = data.current;
+
+    if (
+      typeof data.temperature !== "number" ||
+      typeof data.feels_like !== "number" ||
+      typeof data.wind_speed !== "number"
+    ) {
+      throw new Error("Некорректные данные");
+    }
 
     document.getElementById("temperature").textContent =
-      Math.round(current.temperature_2m) + "°";
+      Math.round(data.temperature) + "°";
 
     document.getElementById("description").textContent =
-      weatherDescription(current.weather_code);
+      "Сейчас в Уфе";
 
     document.getElementById("feels").textContent =
-      "Ощущается как " +
-      Math.round(current.apparent_temperature) + "°";
+      "Ощущается как " + Math.round(data.feels_like) + "°";
 
-    const hour = current.time.slice(0, 13) + ":00";
-    const index = data.hourly.time.indexOf(hour);
+    document.getElementById("weatherDetails").textContent =
+      "Ветер: " + data.wind_speed + " м/с";
 
-    const probability = index >= 0
-      ? data.hourly.precipitation_probability[index]
-      : null;
+    const updated = new Date(data.updated);
 
-    document.getElementById("weatherDetails").innerHTML =
-      "Ветер: " + Math.round(current.wind_speed_10m) + " км/ч" +
-      "<br>Осадки: " +
-      (probability === null ? "нет данных" : probability + "%") +
-      "<br>Сегодня: " +
-      Math.round(data.daily.temperature_2m_min[0]) + "° ... " +
-      Math.round(data.daily.temperature_2m_max[0]) + "°";
+    status.textContent =
+      "Источник: MET Norway · обновлено в " +
+      updated.toLocaleTimeString("ru-RU", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Asia/Yekaterinburg"
+      });
 
-    status.textContent = "Данные Open-Meteo · обновлено сейчас";
   } catch (error) {
+
     document.getElementById("description").textContent =
       "Не удалось загрузить погоду";
 
     document.getElementById("feels").textContent =
       "Проверь подключение к интернету";
 
-    status.textContent = "Попробуем загрузить данные позже";
+    status.textContent =
+      "Попробуем загрузить данные позже";
+
+    console.error(error);
   }
 }
 
 loadWeather();
+
+// Проверяем обновление каждые 30 минут
 setInterval(loadWeather, 30 * 60 * 1000);
+
 </script>
 </body>
 </html>
