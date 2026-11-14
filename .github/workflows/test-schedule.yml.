@@ -1,0 +1,38 @@
+
+name: Test college schedule
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check schedule website
+        run: |
+          python - <<'PY'
+          import urllib.request
+
+          url = "https://schedule.uksivt.ru/public?id=67&mode=group"
+
+          request = urllib.request.Request(
+              url,
+              headers={
+                  "User-Agent": "Mozilla/5.0"
+              }
+          )
+
+          try:
+              with urllib.request.urlopen(request, timeout=30) as response:
+                  html = response.read().decode("utf-8", errors="replace")
+
+                  print("STATUS:", response.status)
+                  print("PAGE SIZE:", len(html))
+                  print("24Ю-3 FOUND:", "24Ю-3" in html)
+                  print("PAGE TITLE:", html[:500])
+
+          except Exception as error:
+              print("ERROR:", repr(error))
+              raise
+          PY
