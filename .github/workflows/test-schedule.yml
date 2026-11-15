@@ -13,20 +13,18 @@ jobs:
         run: |
           python - <<'PY'
           import urllib.request
-          import urllib.parse
+          import urllib.error
 
-          base = "https://uksivt.info"
-          params = urllib.parse.urlencode({
-              "groupName": "24Ю-3"
-          })
+          base = "https://uksivt.azurewebsites.net"
 
           endpoints = [
-              "/api/schedule/week?" + params,
-              "/api/changes/week?" + params
+              "/api/schedule/week?groupName=24Ю-3",
+              "/api/changes/week?groupName=24Ю-3"
           ]
 
           for endpoint in endpoints:
               url = base + endpoint
+
               print("\n" + "=" * 50)
               print("URL:", url)
 
@@ -44,11 +42,10 @@ jobs:
                       )
 
                       print("STATUS:", response.status)
-                      print("CONTENT TYPE:",
-                            response.headers.get("Content-Type"))
                       print("RESPONSE:")
                       print(data[:5000])
 
               except Exception as error:
                   print("ERROR:", repr(error))
           PY
+ 
