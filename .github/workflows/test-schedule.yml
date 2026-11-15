@@ -1,5 +1,5 @@
 
-name: Test college schedule API
+name: Test college schedule
 
 on:
   workflow_dispatch:
@@ -9,47 +9,36 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Test schedule API
+      - name: Download schedule
         run: |
           python - <<'PY'
           import urllib.request
-          import urllib.parse
+          import json
 
-          base = "https://uksivt.azurewebsites.net"
+          url = "https://raw.githubusercontent.com/LostCode09/uksivt-schedule/main/data/w/g67/2026-11-09.json"
 
-          params = urllib.parse.urlencode({
-              "groupName": "24Ю-3"
-          })
+          try:
+              with urllib.request.urlopen(url, timeout=30) as response:
+                  data = json.loads(response.read().decode("utf-8"))
 
-          endpoints = [
-              "/api/schedule/week?" + params,
-              "/api/changes/week?" + params
-          ]
+              print("STATUS: OK")
+              print("GROUP:", data.get("title"))
+              print("WEEK:", data.get("week_start"))
 
-          for endpoint in endpoints:
-              url = base + endpoint
-
-              print("\n" + "=" * 50)
-              print("URL:", url)
-
-              request = urllib.request.Request(
-                  url,
-                  headers={"User-Agent": "Mozilla/5.0"}
-              )
-
-              try:
-                  with urllib.request.urlopen(
-                      request, timeout=30
-                  ) as response:
-                      data = response.read().decode(
-                          "utf-8", errors="replace"
+              for day in data.get("days", []):
+                  print("\n", day["name"], day["date"])
+                  for lesson in day.get("lessons", []):
+                      print(
+                          lesson["start"],
+                          "-",
+                          lesson["end"],
+                          lesson["title"],
+                          "| Кабинет:",
+                          lesson["room"]
                       )
 
-                      print("STATUS:", response.status)
-                      print("RESPONSE:")
-                      print(data[:5000])
-
-              except Exception as error:
-                  print("ERROR:", repr(error))
+          except Exception as error:
+              print("ERROR:", repr(error))
+              raise
           PY
  
