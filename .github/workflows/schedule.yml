@@ -146,4 +146,4 @@ jobs:
             git commit -m "Update college schedule"
             git push
           fi
-Ч
+
