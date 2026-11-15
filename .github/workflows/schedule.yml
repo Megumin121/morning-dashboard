@@ -1,3 +1,4 @@
+
 name: Update college schedule
 
 on:
@@ -43,9 +44,7 @@ jobs:
           )
 
           with urllib.request.urlopen(request, timeout=30) as response:
-              data = json.loads(
-                  response.read().decode("utf-8")
-              )
+              data = json.loads(response.read().decode("utf-8"))
 
           if data.get("title") != "24Ю-3":
               raise ValueError("Wrong group: " + str(data.get("title")))
@@ -62,11 +61,84 @@ jobs:
           print("LESSONS:", sum(len(d.get("lessons", [])) for d in data["days"]))
           PY
 
+      - name: Generate calendar
+        run: |
+          python - <<'PY'
+          import json
+          from datetime import datetime
+          from zoneinfo import ZoneInfo
+
+          TZ = ZoneInfo("Asia/Yekaterinburg")
+
+          def escape(value):
+              return (str(value or "")
+                  .replace("\\", "\\\\")
+                  .replace("\n", "\\n")
+                  .replace(",", "\\,")
+                  .replace(";", "\\;"))
+
+          def parse_time(value):
+              value = str(value).strip().replace(".", ":")
+              return datetime.strptime(value, "%H:%M").time()
+
+          def utc_format(value):
+              return value.astimezone(ZoneInfo("UTC")).strftime("%Y%m%dT%H%M%SZ")
+
+          with open("schedule.json", encoding="utf-8") as f:
+              data = json.load(f)
+
+          now = datetime.now(ZoneInfo("UTC"))
+          stamp = now.strftime("%Y%m%dT%H%M%SZ")
+
+          lines = [
+              "BEGIN:VCALENDAR",
+              "VERSION:2.0",
+              "PRODID:-//Morning Dashboard//College Schedule//RU",
+              "CALSCALE:GREGORIAN",
+              "METHOD:PUBLISH",
+              "X-WR-CALNAME:Расписание 24Ю-3",
+              "X-WR-TIMEZONE:Asia/Yekaterinburg"
+          ]
+
+          count = 0
+
+          for day in data["days"]:
+              date = datetime.strptime(day["date"], "%Y-%m-%d").date()
+
+              for index, lesson in enumerate(day.get("lessons", [])):
+                  start = datetime.combine(date, parse_time(lesson["start"]), TZ)
+                  end = datetime.combine(date, parse_time(lesson["end"]), TZ)
+
+                  title = lesson.get("title", "Занятие")
+                  room = lesson.get("room", "")
+
+                  lines.extend([
+                      "BEGIN:VEVENT",
+                      f"UID:uksivt-24yu3-{date.isoformat()}-{index}@morning-dashboard",
+                      f"DTSTAMP:{stamp}",
+                      f"DTSTART:{utc_format(start)}",
+                      f"DTEND:{utc_format(end)}",
+                      f"SUMMARY:{escape(title)}",
+                      f"LOCATION:{escape(room)}",
+                      "END:VEVENT"
+                  ])
+
+                  count += 1
+
+          lines.append("END:VCALENDAR")
+
+          with open("schedule.ics", "w", encoding="utf-8", newline="") as f:
+              f.write("\r\n".join(lines) + "\r\n")
+
+          print("SUCCESS: schedule.ics generated")
+          print("EVENTS:", count)
+          PY
+
       - name: Save schedule to GitHub
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add schedule.json
+          git add schedule.json schedule.ics
 
           if git diff --cached --quiet; then
             echo "Schedule has not changed"
@@ -74,3 +146,4 @@ jobs:
             git commit -m "Update college schedule"
             git push
           fi
+Ч
