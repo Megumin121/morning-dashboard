@@ -13,13 +13,17 @@ jobs:
         run: |
           python - <<'PY'
           import urllib.request
-          import urllib.error
+          import urllib.parse
 
           base = "https://uksivt.azurewebsites.net"
 
+          params = urllib.parse.urlencode({
+              "groupName": "24Ю-3"
+          })
+
           endpoints = [
-              "/api/schedule/week?groupName=24Ю-3",
-              "/api/changes/week?groupName=24Ю-3"
+              "/api/schedule/week?" + params,
+              "/api/changes/week?" + params
           ]
 
           for endpoint in endpoints:
