@@ -1,0 +1,76 @@
+name: Update college schedule
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "27 * * * *"
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Download current week schedule
+        run: |
+          python - <<'PY'
+          import urllib.request
+          import json
+          from datetime import datetime, timedelta
+          from zoneinfo import ZoneInfo
+
+          now = datetime.now(ZoneInfo("Asia/Yekaterinburg"))
+          monday = now.date() - timedelta(days=now.weekday())
+          week = monday.isoformat()
+
+          url = (
+              "https://raw.githubusercontent.com/"
+              "LostCode09/uksivt-schedule/main/"
+              f"data/w/g67/{week}.json"
+          )
+
+          print("CURRENT WEEK:", week)
+          print("SOURCE:", url)
+
+          request = urllib.request.Request(
+              url,
+              headers={"User-Agent": "morning-dashboard/1.0"}
+          )
+
+          with urllib.request.urlopen(request, timeout=30) as response:
+              data = json.loads(
+                  response.read().decode("utf-8")
+              )
+
+          if data.get("title") != "24Ю-3":
+              raise ValueError("Wrong group: " + str(data.get("title")))
+
+          if not isinstance(data.get("days"), list):
+              raise ValueError("Schedule days not found")
+
+          with open("schedule.json", "w", encoding="utf-8") as file:
+              json.dump(data, file, ensure_ascii=False, indent=2)
+
+          print("SUCCESS: schedule.json saved")
+          print("GROUP:", data["title"])
+          print("DAYS:", len(data["days"]))
+          print("LESSONS:", sum(len(d.get("lessons", [])) for d in data["days"]))
+          PY
+
+      - name: Save schedule to GitHub
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add schedule.json
+
+          if git diff --cached --quiet; then
+            echo "Schedule has not changed"
+          else
+            git commit -m "Update college schedule"
+            git push
+          fi
