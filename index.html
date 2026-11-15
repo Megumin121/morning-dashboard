@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -54,6 +55,41 @@ h1 { font-size: 32px; margin: 10px 0; }
 
 .item:last-child { border: 0; }
 
+.lesson {
+  display: flex;
+  gap: 14px;
+  padding: 15px 0;
+  border-bottom: 1px solid #303541;
+}
+
+.lesson:last-child { border-bottom: 0; }
+
+.lesson-time {
+  min-width: 100px;
+  color: #aeb3c0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.lesson-title {
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.lesson-room {
+  color: #9297a4;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+.empty {
+  color: #9297a4;
+  font-size: 14px;
+  padding: 8px 0;
+  line-height: 1.6;
+}
+
 footer {
   text-align: center;
   color: #777e8c;
@@ -69,7 +105,9 @@ footer {
   font-size: 14px;
 }
 
-#weatherStatus { margin-top: 10px; }
+#weatherStatus,
+#scheduleStatus { margin-top: 10px; }
+
 </style>
 </head>
 
@@ -98,11 +136,11 @@ footer {
   </section>
 
   <section class="card">
-    <h2>Расписание</h2>
-    <div class="item">
-      <div>Расписание пока не подключено</div>
-      <div class="muted">Здесь будут занятия на сегодня</div>
+    <h2>Расписание на сегодня</h2>
+    <div id="schedule">
+      <div class="empty">Загружаем расписание...</div>
     </div>
+    <div class="muted" id="scheduleStatus"></div>
   </section>
 
   <section class="card">
@@ -119,6 +157,25 @@ footer {
 
 <script>
 
+// ЧАСОВОЙ ПОЯС
+
+const TIME_ZONE = "Asia/Yekaterinburg";
+
+function getToday() {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit"
+  }).formatToParts(new Date());
+
+  const values = {};
+  parts.forEach(part => values[part.type] = part.value);
+
+  return `${values.year}-${values.month}-${values.day}`;
+}
+
+
 // ЧАСЫ
 
 function updateClock() {
@@ -129,14 +186,14 @@ function updateClock() {
       weekday: "long",
       day: "numeric",
       month: "long",
-      timeZone: "Asia/Yekaterinburg"
+      timeZone: TIME_ZONE
     }).toUpperCase();
 
   document.getElementById("time").textContent =
     now.toLocaleTimeString("ru-RU", {
       hour: "2-digit",
       minute: "2-digit",
-      timeZone: "Asia/Yekaterinburg"
+      timeZone: TIME_ZONE
     });
 }
 
@@ -177,7 +234,7 @@ async function loadWeather() {
     });
 
     if (!response.ok) {
-      throw new Error("Ошибка загрузки");
+      throw new Error("Ошибка загрузки погоды");
     }
 
     const data = await response.json();
@@ -187,7 +244,7 @@ async function loadWeather() {
       typeof data.feels_like !== "number" ||
       typeof data.wind_speed !== "number"
     ) {
-      throw new Error("Некорректные данные");
+      throw new Error("Некорректные данные погоды");
     }
 
     document.getElementById("temperature").textContent =
@@ -215,7 +272,7 @@ async function loadWeather() {
       updated.toLocaleTimeString("ru-RU", {
         hour: "2-digit",
         minute: "2-digit",
-        timeZone: "Asia/Yekaterinburg"
+        timeZone: TIME_ZONE
       });
 
   } catch (error) {
@@ -231,9 +288,114 @@ async function loadWeather() {
   }
 }
 
+
+// ЗАГРУЗКА РАСПИСАНИЯ
+
+async function loadSchedule() {
+  const container = document.getElementById("schedule");
+  const status = document.getElementById("scheduleStatus");
+
+  try {
+    status.textContent = "Обновляем расписание...";
+
+    const response = await fetch(
+      "./schedule.json?t=" + Date.now(),
+      { cache: "no-store" }
+    );
+
+    if (!response.ok) {
+      throw new Error("Не удалось получить расписание");
+    }
+
+    const data = await response.json();
+
+    if (!Array.isArray(data.days)) {
+      throw new Error("Некорректный формат расписания");
+    }
+
+    const today = getToday();
+
+    const todayData = data.days.find(day => day.date === today);
+
+    container.replaceChildren();
+
+    if (!todayData || !Array.isArray(todayData.lessons) ||
+        todayData.lessons.length === 0) {
+
+      const empty = document.createElement("div");
+      empty.className = "empty";
+      empty.textContent = "Сегодня пар нет. Можно немного отдохнуть!";
+      container.appendChild(empty);
+
+    } else {
+
+      const lessons = [...todayData.lessons].sort((a, b) =>
+        String(a.start || "").localeCompare(String(b.start || ""))
+      );
+
+      lessons.forEach(lesson => {
+        const item = document.createElement("div");
+        item.className = "lesson";
+
+        const time = document.createElement("div");
+        time.className = "lesson-time";
+        time.textContent =
+          `${lesson.start || "—"}\n—\n${lesson.end || "—"}`;
+
+        const info = document.createElement("div");
+
+        const title = document.createElement("div");
+        title.className = "lesson-title";
+        title.textContent = lesson.title || "Предмет не указан";
+
+        const room = document.createElement("div");
+        room.className = "lesson-room";
+        room.textContent = lesson.room
+          ? "Кабинет: " + lesson.room
+          : "Кабинет не указан";
+
+        info.appendChild(title);
+        info.appendChild(room);
+
+        item.appendChild(time);
+        item.appendChild(info);
+
+        container.appendChild(item);
+      });
+    }
+
+    status.textContent =
+      "Группа 24Ю-3 · " + today +
+      " · Обновление источника автоматически";
+
+  } catch (error) {
+    container.replaceChildren();
+
+    const message = document.createElement("div");
+    message.className = "empty";
+    message.textContent = "Не удалось загрузить расписание.";
+
+    container.appendChild(message);
+
+    status.textContent = "Попробуем загрузить данные позже";
+
+    console.error(error);
+  }
+}
+
+
+// ЗАПУСК И ОБНОВЛЕНИЕ
+
 loadWeather();
+loadSchedule();
+
 setInterval(loadWeather, 30 * 60 * 1000);
+setInterval(loadSchedule, 30 * 60 * 1000);
+
+// Проверяем смену дня
+setInterval(loadSchedule, 60 * 1000);
 
 </script>
 </body>
 </html>
+ 
