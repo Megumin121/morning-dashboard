@@ -6,7 +6,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Моё утро</title>
 
-
 <style>
 * { box-sizing: border-box; }
 
@@ -102,14 +101,15 @@ h1 {
 .lesson:last-child { border-bottom: 0; }
 
 .lesson-time {
-  min-width: 100px;
+  min-width: 70px;
   color: #C2D4F2;
-  font-size: 13px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: pre-line;
 }
 
 .lesson-title {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: bold;
   line-height: 1.4;
   color: #F0F4FC;
@@ -144,12 +144,11 @@ footer {
   color: #E5D5DE;
 }
 
+/* СКРЫВАЕМ ТЕХНИЧЕСКИЕ ПОДПИСИ */
 #weatherStatus,
 #scheduleStatus {
-  margin-top: 10px;
+  display: none;
 }
-
-#scheduleStatus { color: #AFC1DE; }
 
 </style>
 </head>
@@ -383,7 +382,7 @@ async function loadSchedule() {
         const time = document.createElement("div");
         time.className = "lesson-time";
         time.textContent =
-          `${lesson.start || "—"}\n—\n${lesson.end || "—"}`;
+          `${lesson.start || "—"}\n${lesson.end || "—"}`;
 
         const info = document.createElement("div");
 
@@ -441,4 +440,5 @@ setInterval(loadSchedule, 60 * 1000);
 </script>
 </body>
 </html>
+
  
