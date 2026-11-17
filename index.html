@@ -6,38 +6,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Моё утро</title>
 
+
 <style>
 * { box-sizing: border-box; }
 
 body {
   margin: 0;
   padding: 24px 16px;
-  background: #111318;
-  color: #f1f2f5;
+  background: #090B10;
+  color: #F2F2F6;
   font-family: Arial, sans-serif;
 }
 
 main { max-width: 520px; margin: auto; }
+
 header { margin: 25px 0 28px; }
 
 .small {
-  color: #9297a4;
+  color: #B5A1AC;
   font-size: 13px;
   letter-spacing: 1px;
 }
 
-h1 { font-size: 32px; margin: 10px 0; }
-.time { color: #aeb3c0; font-size: 15px; }
+h1 {
+  font-size: 32px;
+  margin: 10px 0;
+  color: #F5EDF1;
+}
+
+.time { color: #C0C2CE; font-size: 15px; }
 
 .card {
-  background: #1c2029;
-  border: 1px solid #2b303b;
   border-radius: 18px;
   padding: 20px;
   margin-bottom: 14px;
+  border: 1px solid;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
-.card h2 { font-size: 17px; margin: 0 0 16px; }
+/* ПОГОДА — ТЁМНЫЙ ВИШНЁВЫЙ */
+.card:nth-of-type(1) {
+  background: linear-gradient(145deg, #351321, #21101A);
+  border-color: #64243D;
+}
+
+/* РАСПИСАНИЕ — НАСЫЩЕННЫЙ СИНИЙ */
+.card:nth-of-type(2) {
+  background: linear-gradient(145deg, #172D50, #101B30);
+  border-color: #294D7D;
+}
+
+/* МОИ ПЛАНЫ — БОРДОВЫЙ */
+.card:nth-of-type(3) {
+  background: linear-gradient(145deg, #301522, #21111D);
+  border-color: #57263B;
+}
+
+.card h2 {
+  font-size: 17px;
+  margin: 0 0 16px;
+  color: #F4EDF2;
+}
 
 .weather {
   display: flex;
@@ -45,12 +74,20 @@ h1 { font-size: 32px; margin: 10px 0; }
   gap: 18px;
 }
 
-.temperature { font-size: 42px; font-weight: bold; }
-.muted { color: #9297a4; font-size: 14px; }
+.temperature {
+  font-size: 42px;
+  font-weight: bold;
+  color: #FFE6EF;
+}
+
+.muted {
+  color: #C0B4BF;
+  font-size: 14px;
+}
 
 .item {
   padding: 12px 0;
-  border-bottom: 1px solid #303541;
+  border-bottom: 1px solid #573044;
 }
 
 .item:last-child { border: 0; }
@@ -59,14 +96,14 @@ h1 { font-size: 32px; margin: 10px 0; }
   display: flex;
   gap: 14px;
   padding: 15px 0;
-  border-bottom: 1px solid #303541;
+  border-bottom: 1px solid #30466A;
 }
 
 .lesson:last-child { border-bottom: 0; }
 
 .lesson-time {
   min-width: 100px;
-  color: #aeb3c0;
+  color: #C2D4F2;
   font-size: 13px;
   line-height: 1.6;
 }
@@ -75,16 +112,17 @@ h1 { font-size: 32px; margin: 10px 0; }
   font-size: 15px;
   font-weight: bold;
   line-height: 1.4;
+  color: #F0F4FC;
 }
 
 .lesson-room {
-  color: #9297a4;
+  color: #AFC1DE;
   font-size: 13px;
   margin-top: 5px;
 }
 
 .empty {
-  color: #9297a4;
+  color: #C0C9D9;
   font-size: 14px;
   padding: 8px 0;
   line-height: 1.6;
@@ -92,7 +130,7 @@ h1 { font-size: 32px; margin: 10px 0; }
 
 footer {
   text-align: center;
-  color: #777e8c;
+  color: #858997;
   font-size: 12px;
   margin: 28px 0;
 }
@@ -100,13 +138,18 @@ footer {
 #weatherDetails {
   margin-top: 20px;
   padding-top: 15px;
-  border-top: 1px solid #303541;
+  border-top: 1px solid #633047;
   line-height: 1.8;
   font-size: 14px;
+  color: #E5D5DE;
 }
 
 #weatherStatus,
-#scheduleStatus { margin-top: 10px; }
+#scheduleStatus {
+  margin-top: 10px;
+}
+
+#scheduleStatus { color: #AFC1DE; }
 
 </style>
 </head>
