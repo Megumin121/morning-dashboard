@@ -1,9 +1,9 @@
 {
   "city": "Уфа",
-  "temperature": 1.3,
-  "feels_like": 1.3,
-  "wind_speed": 2.6,
+  "temperature": 1.0,
+  "feels_like": 1.0,
+  "wind_speed": 3.4,
   "symbol": "cloudy",
   "precipitation": 0.0,
-  "updated": "2026-11-18T11:17:15.817838+00:00"
+  "updated": "2026-11-18T13:33:07.497772+00:00"
 }
