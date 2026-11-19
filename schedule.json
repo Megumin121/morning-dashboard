@@ -167,7 +167,7 @@
       "lessons": [
         {
           "additional": false,
-          "cancelled": false,
+          "cancelled": true,
           "end": "13:35",
           "group": "",
           "note": "",
@@ -177,7 +177,11 @@
           "parity": null,
           "room": "Гимнаст. зал",
           "start": "12:05",
-          "sub": null,
+          "sub": {
+            "cancel": true,
+            "note": "пары не будет",
+            "was": ""
+          },
           "teacher": "Белослудцева А. В.",
           "title": "Физическая культура"
         },
