@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -43,19 +42,16 @@ h1 {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
-/* ПОГОДА — ТЁМНЫЙ ВИШНЁВЫЙ */
 .card:nth-of-type(1) {
   background: linear-gradient(145deg, #351321, #21101A);
   border-color: #64243D;
 }
 
-/* РАСПИСАНИЕ — НАСЫЩЕННЫЙ СИНИЙ */
 .card:nth-of-type(2) {
   background: linear-gradient(145deg, #172D50, #101B30);
   border-color: #294D7D;
 }
 
-/* МОИ ПЛАНЫ — БОРДОВЫЙ */
 .card:nth-of-type(3) {
   background: linear-gradient(145deg, #301522, #21111D);
   border-color: #57263B;
@@ -144,63 +140,105 @@ footer {
   color: #E5D5DE;
 }
 
-/* СКРЫВАЕМ ТЕХНИЧЕСКИЕ ПОДПИСИ */
+.forecast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.forecast-item {
+  background: rgba(255,255,255,0.045);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.forecast-time {
+  color: #D7B8C7;
+  font-size: 13px;
+}
+
+.forecast-temp {
+  font-size: 23px;
+  font-weight: bold;
+  margin: 7px 0;
+  color: #FFE6EF;
+}
+
+.forecast-info {
+  font-size: 12px;
+  color: #C0B4BF;
+  line-height: 1.5;
+}
+
 #weatherStatus,
 #scheduleStatus {
   display: none;
 }
-
 </style>
 </head>
 
 <body>
 <main>
 
-  <header>
-    <div class="small" id="date"></div>
-    <h1>Доброе утро!</h1>
-    <div class="time" id="time"></div>
-  </header>
+<header>
+  <div class="small" id="date"></div>
+  <h1>Доброе утро!</h1>
+  <div class="time" id="time"></div>
+</header>
 
-  <section class="card">
-    <h2>Погода · Уфа</h2>
+<section class="card">
+  <h2>Погода · Уфа</h2>
 
-    <div class="weather">
-      <div class="temperature" id="temperature">—°</div>
-      <div>
-        <div id="description">Загружаем погоду...</div>
-        <div class="muted" id="feels">Получаем данные</div>
-      </div>
+  <div class="weather">
+    <div class="temperature" id="temperature">—°</div>
+    <div>
+      <div id="description">Загружаем погоду...</div>
+      <div class="muted" id="feels">Получаем данные</div>
+    </div>
+  </div>
+
+  <div id="weatherDetails"></div>
+
+  <div class="forecast">
+    <div class="forecast-item">
+      <div class="forecast-time">Сегодня · 15:00</div>
+      <div class="forecast-temp" id="forecast15">—°</div>
+      <div class="forecast-info" id="forecastInfo15">Загружаем...</div>
     </div>
 
-    <div id="weatherDetails"></div>
-    <div class="muted" id="weatherStatus"></div>
-  </section>
-
-  <section class="card">
-    <h2>Расписание на сегодня</h2>
-    <div id="schedule">
-      <div class="empty">Загружаем расписание...</div>
+    <div class="forecast-item">
+      <div class="forecast-time">Сегодня · 21:00</div>
+      <div class="forecast-temp" id="forecast21">—°</div>
+      <div class="forecast-info" id="forecastInfo21">Загружаем...</div>
     </div>
-    <div class="muted" id="scheduleStatus"></div>
-  </section>
+  </div>
 
-  <section class="card">
-    <h2>Мои планы</h2>
-    <div class="item">
-      <div>Список задач пока не подключён</div>
-      <div class="muted">Здесь появятся твои дела</div>
-    </div>
-  </section>
+  <div class="muted" id="weatherStatus"></div>
+</section>
 
-  <footer>ТВОЯ ЛИЧНАЯ УТРЕННЯЯ ПАНЕЛЬ</footer>
+<section class="card">
+  <h2>Расписание на сегодня</h2>
+  <div id="schedule">
+    <div class="empty">Загружаем расписание...</div>
+  </div>
+  <div class="muted" id="scheduleStatus"></div>
+</section>
+
+<section class="card">
+  <h2>Мои планы</h2>
+  <div class="item">
+    <div>Список задач пока не подключён</div>
+    <div class="muted">Здесь появятся твои дела</div>
+  </div>
+</section>
+
+<footer>ТВОЯ ЛИЧНАЯ УТРЕННЯЯ ПАНЕЛЬ</footer>
 
 </main>
 
 <script>
-
-// ЧАСОВОЙ ПОЯС
-
 const TIME_ZONE = "Asia/Yekaterinburg";
 
 function getToday() {
@@ -216,9 +254,6 @@ function getToday() {
 
   return `${values.year}-${values.month}-${values.day}`;
 }
-
-
-// ЧАСЫ
 
 function updateClock() {
   const now = new Date();
@@ -242,104 +277,169 @@ function updateClock() {
 updateClock();
 setInterval(updateClock, 1000);
 
+function weatherDescription(code) {
+  const descriptions = {
+    0: "☀️ Ясно",
+    1: "🌤️ Преимущественно ясно",
+    2: "⛅ Переменная облачность",
+    3: "☁️ Облачно",
+    45: "🌫️ Туман",
+    48: "🌫️ Изморозь",
+    51: "🌦️ Небольшая морось",
+    53: "🌦️ Морось",
+    55: "🌧️ Сильная морось",
+    56: "🌧️ Ледяная морось",
+    57: "🌧️ Сильная ледяная морось",
+    61: "🌧️ Небольшой дождь",
+    63: "🌧️ Дождь",
+    65: "🌧️ Сильный дождь",
+    66: "🌧️ Ледяной дождь",
+    67: "🌧️ Сильный ледяной дождь",
+    71: "❄️ Небольшой снег",
+    73: "❄️ Снег",
+    75: "❄️ Сильный снег",
+    77: "🌨️ Снежная крупа",
+    80: "🌦️ Ливень",
+    81: "🌧️ Сильный ливень",
+    82: "🌧️ Очень сильный ливень",
+    85: "🌨️ Снегопад",
+    86: "❄️ Сильный снегопад",
+    95: "⛈️ Гроза",
+    96: "⛈️ Гроза с градом",
+    99: "⛈️ Сильная гроза"
+  };
 
-// ОПИСАНИЕ ПОГОДЫ
-
-function weatherDescription(symbol) {
-  if (!symbol) return "Погодные условия неизвестны";
-
-  const code = symbol.toLowerCase();
-
-  if (code.includes("thunder")) return "⛈️ Гроза";
-  if (code.includes("snow")) return "❄️ Снег";
-  if (code.includes("sleet")) return "🌨️ Мокрый снег";
-  if (code.includes("rain")) return "🌧️ Дождь";
-  if (code.includes("fog")) return "🌫️ Туман";
-  if (code.includes("clear")) return "☀️ Ясно";
-  if (code.includes("partlycloudy")) return "🌤️ Переменная облачность";
-  if (code.includes("cloudy")) return "☁️ Облачно";
-
-  return "Переменная погода";
+  return descriptions[code] || "Переменная погода";
 }
 
+function renderForecast(hourly, hour, elementId, infoId) {
+  const today = getToday();
+  const target = `${today}T${String(hour).padStart(2, "0")}:00`;
 
-// ЗАГРУЗКА ПОГОДЫ
+  const index = hourly.time.indexOf(target);
+
+  const tempElement = document.getElementById(elementId);
+  const infoElement = document.getElementById(infoId);
+
+  if (index === -1 || hourly.temperature_2m[index] == null) {
+    tempElement.textContent = "—°";
+    infoElement.textContent = "Нет прогноза";
+    return;
+  }
+
+  const temperature = hourly.temperature_2m[index];
+  const code = hourly.weather_code[index];
+  const probability = hourly.precipitation_probability[index];
+
+  tempElement.textContent = Math.round(temperature) + "°";
+
+  infoElement.textContent =
+    weatherDescription(code) +
+    (probability != null
+      ? " · Осадки: " + probability + "%"
+      : "");
+}
 
 async function loadWeather() {
   const status = document.getElementById("weatherStatus");
 
   try {
-    status.textContent = "Обновляем данные...";
+    const url =
+      "https://api.open-meteo.com/v1/forecast" +
+      "?latitude=54.7388" +
+      "&longitude=55.9721" +
+      "&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m" +
+      "&hourly=temperature_2m,precipitation_probability,weather_code" +
+      "&forecast_days=2" +
+      "&timezone=Asia%2FYekaterinburg" +
+      "&wind_speed_unit=ms";
 
-    const response = await fetch("./weather.json?t=" + Date.now(), {
-      cache: "no-store"
-    });
+    const response = await fetch(url, { cache: "no-store" });
 
     if (!response.ok) {
-      throw new Error("Ошибка загрузки погоды");
+      throw new Error("Ошибка Open-Meteo");
     }
 
     const data = await response.json();
+    const current = data.current;
 
-    if (
-      typeof data.temperature !== "number" ||
-      typeof data.feels_like !== "number" ||
-      typeof data.wind_speed !== "number"
-    ) {
-      throw new Error("Некорректные данные погоды");
+    if (!current || typeof current.temperature_2m !== "number") {
+      throw new Error("Нет текущей погоды");
     }
 
     document.getElementById("temperature").textContent =
-      Math.round(data.temperature) + "°";
+      Math.round(current.temperature_2m) + "°";
 
     document.getElementById("description").textContent =
-      weatherDescription(data.symbol);
+      weatherDescription(current.weather_code);
 
     document.getElementById("feels").textContent =
-      "Ощущается как " + Math.round(data.feels_like) + "°";
+      "Ощущается как " +
+      Math.round(current.apparent_temperature) + "°";
 
-    const precipitation =
-      typeof data.precipitation === "number"
-        ? data.precipitation.toFixed(1) + " мм"
-        : "Нет данных";
+    document.getElementById("weatherDetails").textContent =
+      "Ветер: " + current.wind_speed_10m.toFixed(1) + " м/с" +
+      " · Осадки: " + current.precipitation.toFixed(1) + " мм";
 
-    document.getElementById("weatherDetails").innerHTML =
-      "Ветер: " + data.wind_speed.toFixed(1) + " м/с" +
-      "<br>Осадки за ближайший час: " + precipitation;
+    if (data.hourly) {
+      renderForecast(data.hourly, 15, "forecast15", "forecastInfo15");
+      renderForecast(data.hourly, 21, "forecast21", "forecastInfo21");
+    }
 
-    const updated = new Date(data.updated);
-
-    status.textContent =
-      "Источник: MET Norway · обновлено в " +
-      updated.toLocaleTimeString("ru-RU", {
-        hour: "2-digit",
-        minute: "2-digit",
-        timeZone: TIME_ZONE
-      });
+    status.textContent = "Данные Open-Meteo";
 
   } catch (error) {
-    document.getElementById("description").textContent =
-      "Не удалось загрузить погоду";
+    console.error("Ошибка загрузки погоды:", error);
 
-    document.getElementById("feels").textContent =
-      "Проверь подключение к интернету";
+    try {
+      const response = await fetch("./weather.json?t=" + Date.now(), {
+        cache: "no-store"
+      });
 
-    status.textContent = "Попробуем загрузить данные позже";
+      if (!response.ok) throw new Error("Нет резервных данных");
 
-    console.error(error);
+      const data = await response.json();
+
+      document.getElementById("temperature").textContent =
+        Math.round(data.temperature) + "°";
+
+      document.getElementById("description").textContent =
+        data.symbol ? data.symbol.replaceAll("_", " ") : "Погода";
+
+      document.getElementById("feels").textContent =
+        "Ощущается как " + Math.round(data.feels_like) + "°";
+
+      document.getElementById("weatherDetails").textContent =
+        "Ветер: " + data.wind_speed.toFixed(1) + " м/с" +
+        " · Осадки: " + data.precipitation.toFixed(1) + " мм";
+
+      document.getElementById("forecastInfo15").textContent =
+        "Прогноз временно недоступен";
+
+      document.getElementById("forecastInfo21").textContent =
+        "Прогноз временно недоступен";
+
+      status.textContent = "Используются резервные данные";
+
+    } catch (fallbackError) {
+      document.getElementById("description").textContent =
+        "Не удалось загрузить погоду";
+
+      document.getElementById("feels").textContent =
+        "Проверь подключение к интернету";
+
+      document.getElementById("weatherDetails").textContent = "";
+      document.getElementById("forecastInfo15").textContent = "Нет данных";
+      document.getElementById("forecastInfo21").textContent = "Нет данных";
+    }
   }
 }
-
-
-// ЗАГРУЗКА РАСПИСАНИЯ
 
 async function loadSchedule() {
   const container = document.getElementById("schedule");
   const status = document.getElementById("scheduleStatus");
 
   try {
-    status.textContent = "Обновляем расписание...";
-
     const response = await fetch(
       "./schedule.json?t=" + Date.now(),
       { cache: "no-store" }
@@ -356,10 +456,27 @@ async function loadSchedule() {
     }
 
     const today = getToday();
-
     const todayData = data.days.find(day => day.date === today);
 
     container.replaceChildren();
+
+    if (data.week_start) {
+      const weekStart = new Date(data.week_start + "T00:00:00Z");
+      const todayDate = new Date(today + "T00:00:00Z");
+
+      const daysDifference =
+        Math.floor((todayDate - weekStart) / 86400000);
+
+      if (daysDifference < 0 || daysDifference > 6) {
+        const message = document.createElement("div");
+        message.className = "empty";
+        message.textContent =
+          "Расписание ещё не обновлено. Проверь позже.";
+
+        container.appendChild(message);
+        return;
+      }
+    }
 
     if (!todayData || !Array.isArray(todayData.lessons) ||
         todayData.lessons.length === 0) {
@@ -367,48 +484,46 @@ async function loadSchedule() {
       const empty = document.createElement("div");
       empty.className = "empty";
       empty.textContent = "Сегодня пар нет. Можно немного отдохнуть!";
+
       container.appendChild(empty);
-
-    } else {
-
-      const lessons = [...todayData.lessons].sort((a, b) =>
-        String(a.start || "").localeCompare(String(b.start || ""))
-      );
-
-      lessons.forEach(lesson => {
-        const item = document.createElement("div");
-        item.className = "lesson";
-
-        const time = document.createElement("div");
-        time.className = "lesson-time";
-        time.textContent =
-          `${lesson.start || "—"}\n${lesson.end || "—"}`;
-
-        const info = document.createElement("div");
-
-        const title = document.createElement("div");
-        title.className = "lesson-title";
-        title.textContent = lesson.title || "Предмет не указан";
-
-        const room = document.createElement("div");
-        room.className = "lesson-room";
-        room.textContent = lesson.room
-          ? "Кабинет: " + lesson.room
-          : "Кабинет не указан";
-
-        info.appendChild(title);
-        info.appendChild(room);
-
-        item.appendChild(time);
-        item.appendChild(info);
-
-        container.appendChild(item);
-      });
+      return;
     }
 
-    status.textContent =
-      "Группа 24Ю-3 · " + today +
-      " · Обновление источника автоматически";
+    const lessons = [...todayData.lessons].sort((a, b) =>
+      String(a.start || "").localeCompare(String(b.start || ""))
+    );
+
+    lessons.forEach(lesson => {
+      const item = document.createElement("div");
+      item.className = "lesson";
+
+      const time = document.createElement("div");
+      time.className = "lesson-time";
+      time.textContent =
+        `${lesson.start || "—"}\n${lesson.end || "—"}`;
+
+      const info = document.createElement("div");
+
+      const title = document.createElement("div");
+      title.className = "lesson-title";
+      title.textContent = lesson.title || "Предмет не указан";
+
+      const room = document.createElement("div");
+      room.className = "lesson-room";
+      room.textContent = lesson.room
+        ? "Кабинет: " + lesson.room
+        : "Кабинет не указан";
+
+      info.appendChild(title);
+      info.appendChild(room);
+
+      item.appendChild(time);
+      item.appendChild(info);
+
+      container.appendChild(item);
+    });
+
+    status.textContent = "";
 
   } catch (error) {
     container.replaceChildren();
@@ -419,26 +534,16 @@ async function loadSchedule() {
 
     container.appendChild(message);
 
-    status.textContent = "Попробуем загрузить данные позже";
-
-    console.error(error);
+    console.error("Ошибка расписания:", error);
   }
 }
-
-
-// ЗАПУСК И ОБНОВЛЕНИЕ
 
 loadWeather();
 loadSchedule();
 
 setInterval(loadWeather, 30 * 60 * 1000);
 setInterval(loadSchedule, 30 * 60 * 1000);
-
-// Проверяем смену дня
 setInterval(loadSchedule, 60 * 1000);
-
 </script>
 </body>
-</html>
-
- 
+  </html>
