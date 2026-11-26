@@ -17,7 +17,6 @@ body {
 }
 
 main { max-width: 520px; margin: auto; }
-
 header { margin: 25px 0 28px; }
 
 .small {
@@ -39,21 +38,21 @@ h1 {
   padding: 20px;
   margin-bottom: 14px;
   border: 1px solid;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 8px 24px rgba(0,0,0,.18);
 }
 
 .card:nth-of-type(1) {
-  background: linear-gradient(145deg, #351321, #21101A);
+  background: linear-gradient(145deg,#351321,#21101A);
   border-color: #64243D;
 }
 
 .card:nth-of-type(2) {
-  background: linear-gradient(145deg, #172D50, #101B30);
+  background: linear-gradient(145deg,#172D50,#101B30);
   border-color: #294D7D;
 }
 
 .card:nth-of-type(3) {
-  background: linear-gradient(145deg, #301522, #21111D);
+  background: linear-gradient(145deg,#301522,#21111D);
   border-color: #57263B;
 }
 
@@ -78,6 +77,42 @@ h1 {
 .muted {
   color: #C0B4BF;
   font-size: 14px;
+}
+
+#weatherDetails {
+  display: none;
+}
+
+.forecast {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.forecast-item {
+  background: rgba(255,255,255,.045);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.forecast-time {
+  color: #D7B8C7;
+  font-size: 13px;
+}
+
+.forecast-temp {
+  font-size: 23px;
+  font-weight: bold;
+  margin: 7px 0;
+  color: #FFE6EF;
+}
+
+.forecast-info {
+  font-size: 12px;
+  color: #C0B4BF;
+  line-height: 1.5;
 }
 
 .item {
@@ -131,47 +166,6 @@ footer {
   margin: 28px 0;
 }
 
-#weatherDetails {
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top: 1px solid #633047;
-  line-height: 1.8;
-  font-size: 14px;
-  color: #E5D5DE;
-}
-
-.forecast {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-top: 16px;
-}
-
-.forecast-item {
-  background: rgba(255,255,255,0.045);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 12px;
-  padding: 12px;
-}
-
-.forecast-time {
-  color: #D7B8C7;
-  font-size: 13px;
-}
-
-.forecast-temp {
-  font-size: 23px;
-  font-weight: bold;
-  margin: 7px 0;
-  color: #FFE6EF;
-}
-
-.forecast-info {
-  font-size: 12px;
-  color: #C0B4BF;
-  line-height: 1.5;
-}
-
 #weatherStatus,
 #scheduleStatus {
   display: none;
@@ -199,8 +193,6 @@ footer {
     </div>
   </div>
 
-  <div id="weatherDetails"></div>
-
   <div class="forecast">
     <div class="forecast-item">
       <div class="forecast-time">Сегодня · 15:00</div>
@@ -215,7 +207,7 @@ footer {
     </div>
   </div>
 
-  <div class="muted" id="weatherStatus"></div>
+  <div id="weatherStatus"></div>
 </section>
 
 <section class="card">
@@ -223,7 +215,7 @@ footer {
   <div id="schedule">
     <div class="empty">Загружаем расписание...</div>
   </div>
-  <div class="muted" id="scheduleStatus"></div>
+  <div id="scheduleStatus"></div>
 </section>
 
 <section class="card">
@@ -313,8 +305,8 @@ function weatherDescription(code) {
 }
 
 function renderForecast(hourly, hour, elementId, infoId) {
-  const today = getToday();
-  const target = `${today}T${String(hour).padStart(2, "0")}:00`;
+  const target =
+    `${getToday()}T${String(hour).padStart(2,"0")}:00`;
 
   const index = hourly.time.indexOf(target);
 
@@ -327,38 +319,27 @@ function renderForecast(hourly, hour, elementId, infoId) {
     return;
   }
 
-  const temperature = hourly.temperature_2m[index];
-  const code = hourly.weather_code[index];
-  const probability = hourly.precipitation_probability[index];
-
-  tempElement.textContent = Math.round(temperature) + "°";
+  tempElement.textContent =
+    Math.round(hourly.temperature_2m[index]) + "°";
 
   infoElement.textContent =
-    weatherDescription(code) +
-    (probability != null
-      ? " · Осадки: " + probability + "%"
-      : "");
+    weatherDescription(hourly.weather_code[index]);
 }
 
 async function loadWeather() {
-  const status = document.getElementById("weatherStatus");
-
   try {
     const url =
       "https://api.open-meteo.com/v1/forecast" +
       "?latitude=54.7388" +
       "&longitude=55.9721" +
-      "&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m" +
-      "&hourly=temperature_2m,precipitation_probability,weather_code" +
+      "&current=temperature_2m,apparent_temperature,weather_code" +
+      "&hourly=temperature_2m,weather_code" +
       "&forecast_days=2" +
-      "&timezone=Asia%2FYekaterinburg" +
-      "&wind_speed_unit=ms";
+      "&timezone=Asia%2FYekaterinburg";
 
-    const response = await fetch(url, { cache: "no-store" });
+    const response = await fetch(url, {cache:"no-store"});
 
-    if (!response.ok) {
-      throw new Error("Ошибка Open-Meteo");
-    }
+    if (!response.ok) throw new Error("Ошибка погоды");
 
     const data = await response.json();
     const current = data.current;
@@ -377,19 +358,11 @@ async function loadWeather() {
       "Ощущается как " +
       Math.round(current.apparent_temperature) + "°";
 
-    document.getElementById("weatherDetails").textContent =
-      "Ветер: " + current.wind_speed_10m.toFixed(1) + " м/с" +
-      " · Осадки: " + current.precipitation.toFixed(1) + " мм";
-
-    if (data.hourly) {
-      renderForecast(data.hourly, 15, "forecast15", "forecastInfo15");
-      renderForecast(data.hourly, 21, "forecast21", "forecastInfo21");
-    }
-
-    status.textContent = "Данные Open-Meteo";
+    renderForecast(data.hourly, 15, "forecast15", "forecastInfo15");
+    renderForecast(data.hourly, 21, "forecast21", "forecastInfo21");
 
   } catch (error) {
-    console.error("Ошибка загрузки погоды:", error);
+    console.error("Ошибка погоды:", error);
 
     try {
       const response = await fetch("./weather.json?t=" + Date.now(), {
@@ -409,17 +382,11 @@ async function loadWeather() {
       document.getElementById("feels").textContent =
         "Ощущается как " + Math.round(data.feels_like) + "°";
 
-      document.getElementById("weatherDetails").textContent =
-        "Ветер: " + data.wind_speed.toFixed(1) + " м/с" +
-        " · Осадки: " + data.precipitation.toFixed(1) + " мм";
-
       document.getElementById("forecastInfo15").textContent =
         "Прогноз временно недоступен";
 
       document.getElementById("forecastInfo21").textContent =
         "Прогноз временно недоступен";
-
-      status.textContent = "Используются резервные данные";
 
     } catch (fallbackError) {
       document.getElementById("description").textContent =
@@ -428,7 +395,6 @@ async function loadWeather() {
       document.getElementById("feels").textContent =
         "Проверь подключение к интернету";
 
-      document.getElementById("weatherDetails").textContent = "";
       document.getElementById("forecastInfo15").textContent = "Нет данных";
       document.getElementById("forecastInfo21").textContent = "Нет данных";
     }
@@ -437,22 +403,19 @@ async function loadWeather() {
 
 async function loadSchedule() {
   const container = document.getElementById("schedule");
-  const status = document.getElementById("scheduleStatus");
 
   try {
     const response = await fetch(
       "./schedule.json?t=" + Date.now(),
-      { cache: "no-store" }
+      {cache:"no-store"}
     );
 
-    if (!response.ok) {
-      throw new Error("Не удалось получить расписание");
-    }
+    if (!response.ok) throw new Error("Нет расписания");
 
     const data = await response.json();
 
     if (!Array.isArray(data.days)) {
-      throw new Error("Некорректный формат расписания");
+      throw new Error("Некорректное расписание");
     }
 
     const today = getToday();
@@ -464,15 +427,14 @@ async function loadSchedule() {
       const weekStart = new Date(data.week_start + "T00:00:00Z");
       const todayDate = new Date(today + "T00:00:00Z");
 
-      const daysDifference =
+      const difference =
         Math.floor((todayDate - weekStart) / 86400000);
 
-      if (daysDifference < 0 || daysDifference > 6) {
+      if (difference < 0 || difference > 6) {
         const message = document.createElement("div");
         message.className = "empty";
         message.textContent =
           "Расписание ещё не обновлено. Проверь позже.";
-
         container.appendChild(message);
         return;
       }
@@ -480,16 +442,14 @@ async function loadSchedule() {
 
     if (!todayData || !Array.isArray(todayData.lessons) ||
         todayData.lessons.length === 0) {
-
       const empty = document.createElement("div");
       empty.className = "empty";
       empty.textContent = "Сегодня пар нет. Можно немного отдохнуть!";
-
       container.appendChild(empty);
       return;
     }
 
-    const lessons = [...todayData.lessons].sort((a, b) =>
+    const lessons = [...todayData.lessons].sort((a,b) =>
       String(a.start || "").localeCompare(String(b.start || ""))
     );
 
@@ -523,8 +483,6 @@ async function loadSchedule() {
       container.appendChild(item);
     });
 
-    status.textContent = "";
-
   } catch (error) {
     container.replaceChildren();
 
@@ -533,7 +491,6 @@ async function loadSchedule() {
     message.textContent = "Не удалось загрузить расписание.";
 
     container.appendChild(message);
-
     console.error("Ошибка расписания:", error);
   }
 }
@@ -546,4 +503,4 @@ setInterval(loadSchedule, 30 * 60 * 1000);
 setInterval(loadSchedule, 60 * 1000);
 </script>
 </body>
-  </html>
+</html>
