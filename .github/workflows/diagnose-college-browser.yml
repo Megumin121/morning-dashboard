@@ -1,0 +1,70 @@
+name: Diagnose college browser
+
+on:
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect rendered college schedule
+        run: |
+          pip install playwright
+          playwright install chromium
+
+          cat > diagnose.py <<'PY'
+          import asyncio
+          from datetime import datetime, timedelta
+          from zoneinfo import ZoneInfo
+          from playwright.async_api import async_playwright
+
+          async def main():
+              now = datetime.now(ZoneInfo("Asia/Yekaterinburg"))
+              monday = now.date() - timedelta(days=now.weekday())
+              week = monday.isoformat()
+
+              url = (
+                  "https://schedule.uksivt.ru/public"
+                  f"?mode=group&id=67&semester=1&week={week}"
+              )
+
+              async with async_playwright() as p:
+                  browser = await p.chromium.launch()
+                  page = await browser.new_page()
+
+                  page.on("request", lambda r: print(
+                      "REQUEST:", r.method, r.url
+                  ))
+
+                  page.on("response", lambda r: print(
+                      "RESPONSE:", r.status, r.url
+                  ))
+
+                  print("OPEN:", url)
+
+                  try:
+                      await page.goto(
+                          url,
+                          wait_until="networkidle",
+                          timeout=60000
+                      )
+                  except Exception as e:
+                      print("LOAD WARNING:", e)
+
+                  await page.wait_for_timeout(8000)
+
+                  print("FINAL URL:", page.url)
+                  print("TITLE:", await page.title())
+
+                  print("PAGE TEXT:")
+                  print((await page.locator("body").inner_text())[:15000])
+
+                  print("HTML:")
+                  print((await page.content())[:20000])
+
+                  await browser.close()
+
+          asyncio.run(main())
+          PY
+
+          python diagnose.py
