@@ -1,145 +1,373 @@
-
 {
-  "title": "24Ю-3",
-  "week_start": "2026-11-23",
   "days": [
     {
       "date": "2026-11-23",
       "lessons": [
         {
-          "start": "08:00",
+          "additional": false,
+          "cancelled": false,
           "end": "09:30",
-          "title": "Земельное право",
-          "room": "338"
+          "group": "",
+          "note": "",
+          "num": 1,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "338",
+          "start": "08:00",
+          "sub": {
+            "cancel": false,
+            "group": "",
+            "note": "замена",
+            "room": "338",
+            "teacher": "Шангареева Г. Ф.",
+            "title": "Земельное право",
+            "was": "Разговоры о важном — Ишмаева А. Ш."
+          },
+          "teacher": "Ишмаева А. Ш.",
+          "title": "Разговоры о важном"
         },
         {
-          "start": "09:40",
+          "additional": false,
+          "cancelled": false,
           "end": "11:10",
-          "title": "Судоустройство и правоохранительные органы",
-          "room": "114"
+          "group": "",
+          "note": "",
+          "num": 2,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "114",
+          "start": "09:40",
+          "sub": null,
+          "teacher": "Кильсенбаев Э. Р.",
+          "title": "Судоустройство и правоохранительные органы"
         },
         {
-          "start": "12:05",
+          "additional": false,
+          "cancelled": false,
           "end": "13:35",
-          "title": "Судоустройство и правоохранительные органы",
-          "room": "114"
+          "group": "",
+          "note": "",
+          "num": 3,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "114",
+          "start": "12:05",
+          "sub": null,
+          "teacher": "Кильсенбаев Э. Р.",
+          "title": "Судоустройство и правоохранительные органы"
         },
         {
-          "start": "13:45",
+          "additional": false,
+          "cancelled": false,
           "end": "15:15",
-          "title": "Уголовный процесс",
-          "room": "114"
+          "group": "",
+          "note": "",
+          "num": 4,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "114",
+          "start": "13:45",
+          "sub": null,
+          "teacher": "Хайбрахманов Р. М.",
+          "title": "Уголовный процесс"
         }
-      ]
+      ],
+      "name": "Понедельник"
     },
     {
       "date": "2026-11-24",
       "lessons": [
         {
-          "start": "09:40",
+          "additional": false,
+          "cancelled": false,
           "end": "11:10",
-          "title": "Уголовный процесс",
-          "room": "112"
+          "group": "",
+          "note": "",
+          "num": 2,
+          "only_on": "",
+          "other_time": null,
+          "parity": "нечёт",
+          "room": "Гимнаст. зал",
+          "start": "09:40",
+          "sub": {
+            "cancel": false,
+            "group": "",
+            "note": "замена",
+            "room": "112",
+            "teacher": "Хайбрахманов Р. М.",
+            "title": "Уголовный процесс",
+            "was": "Физическая культура — Белослудцева А. В."
+          },
+          "teacher": "Белослудцева А. В.",
+          "title": "Физическая культура"
         },
         {
-          "start": "12:05",
+          "additional": false,
+          "cancelled": false,
           "end": "13:35",
-          "title": "Судоустройство и правоохранительные органы",
-          "room": "117"
+          "group": "",
+          "note": "",
+          "num": 3,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "117",
+          "start": "12:05",
+          "sub": {
+            "cancel": false,
+            "group": "",
+            "note": "замена",
+            "room": "117",
+            "teacher": "Кильсенбаев Э. Р.",
+            "title": "Судоустройство и правоохранительные органы",
+            "was": "Экологическое право — Гареева Г. Ф."
+          },
+          "teacher": "Гареева Г. Ф.",
+          "title": "Экологическое право"
         },
         {
-          "start": "13:45",
+          "additional": false,
+          "cancelled": false,
           "end": "15:15",
-          "title": "Уголовное право",
-          "room": "322"
+          "group": "",
+          "note": "",
+          "num": 4,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "322",
+          "start": "13:45",
+          "sub": null,
+          "teacher": "Хайбрахманов Р. М.",
+          "title": "Уголовное право"
         },
         {
-          "start": "15:25",
+          "additional": false,
+          "cancelled": false,
           "end": "16:55",
-          "title": "Уголовное право",
-          "room": "322"
+          "group": "",
+          "note": "",
+          "num": 5,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "322",
+          "start": "15:25",
+          "sub": null,
+          "teacher": "Хайбрахманов Р. М.",
+          "title": "Уголовное право"
         }
-      ]
+      ],
+      "name": "Вторник"
     },
     {
       "date": "2026-11-25",
       "lessons": [
         {
-          "start": "08:00",
+          "additional": false,
+          "cancelled": false,
           "end": "09:30",
-          "title": "Земельное право",
-          "room": "118"
+          "group": "",
+          "note": "",
+          "num": 1,
+          "only_on": "",
+          "other_time": null,
+          "parity": "нечёт",
+          "room": "118",
+          "start": "08:00",
+          "sub": {
+            "cancel": false,
+            "group": "",
+            "note": "замена",
+            "room": "118",
+            "teacher": "Шангареева Г. Ф.",
+            "title": "Земельное право",
+            "was": "Учебная практика — Иделбаева У. В."
+          },
+          "teacher": "Иделбаева У. В.",
+          "title": "Учебная практика"
         },
         {
-          "start": "09:40",
+          "additional": false,
+          "cancelled": false,
           "end": "11:10",
-          "title": "Криминалистика",
-          "room": "111а"
+          "group": "",
+          "note": "",
+          "num": 2,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "111а",
+          "start": "09:40",
+          "sub": null,
+          "teacher": "Хасанова Л. Ф.",
+          "title": "Криминалистика"
         }
-      ]
+      ],
+      "name": "Среда"
     },
     {
       "date": "2026-11-26",
       "lessons": [
         {
-          "start": "13:45",
+          "additional": false,
+          "cancelled": false,
           "end": "15:15",
-          "title": "Криминалистика",
-          "room": "111а"
+          "group": "",
+          "note": "",
+          "num": 4,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "111а",
+          "start": "13:45",
+          "sub": null,
+          "teacher": "Хасанова Л. Ф.",
+          "title": "Криминалистика"
         },
         {
-          "start": "15:25",
+          "additional": false,
+          "cancelled": false,
           "end": "16:55",
-          "title": "Уголовное право",
-          "room": "110"
+          "group": "",
+          "note": "",
+          "num": 5,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "110",
+          "start": "15:25",
+          "sub": null,
+          "teacher": "Хайбрахманов Р. М.",
+          "title": "Уголовное право"
         },
         {
-          "start": "17:05",
+          "additional": false,
+          "cancelled": false,
           "end": "18:35",
-          "title": "Уголовный процесс",
-          "room": "1"
+          "group": "",
+          "note": "",
+          "num": 6,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "118",
+          "start": "17:05",
+          "sub": {
+            "cancel": false,
+            "group": "",
+            "note": "замена на другом часе · только 26 ноября",
+            "room": "1",
+            "teacher": "Хайбрахманов Р. М.",
+            "title": "6-я пара: Уголовный процесс",
+            "was": "3-я пара: Учебная практика — Иделбаева У. В."
+          },
+          "teacher": "Иделбаева У. В.",
+          "title": "Учебная практика"
         }
-      ]
+      ],
+      "name": "Четверг"
     },
     {
       "date": "2026-11-27",
       "lessons": [
         {
-          "start": "09:40",
+          "additional": false,
+          "cancelled": false,
           "end": "11:10",
-          "title": "Уголовный процесс",
-          "room": "324"
+          "group": "",
+          "note": "",
+          "num": 2,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "324",
+          "start": "09:40",
+          "sub": null,
+          "teacher": "Хайбрахманов Р. М.",
+          "title": "Уголовный процесс"
         },
         {
-          "start": "12:05",
+          "additional": false,
+          "cancelled": false,
           "end": "13:35",
-          "title": "Уголовный процесс",
-          "room": "324"
+          "group": "",
+          "note": "",
+          "num": 3,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "324",
+          "start": "12:05",
+          "sub": null,
+          "teacher": "Хайбрахманов Р. М.",
+          "title": "Уголовный процесс"
         }
-      ]
+      ],
+      "name": "Пятница"
     },
     {
       "date": "2026-11-28",
       "lessons": [
         {
-          "start": "08:00",
+          "additional": false,
+          "cancelled": false,
           "end": "09:30",
-          "title": "Криминалистика",
-          "room": "111а"
+          "group": "",
+          "note": "",
+          "num": 1,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "111а",
+          "start": "08:00",
+          "sub": null,
+          "teacher": "Хасанова Л. Ф.",
+          "title": "Криминалистика"
         },
         {
-          "start": "09:40",
+          "additional": false,
+          "cancelled": false,
           "end": "11:10",
-          "title": "Судоустройство и правоохранительные органы",
-          "room": "114"
+          "group": "",
+          "note": "",
+          "num": 2,
+          "only_on": "",
+          "other_time": null,
+          "parity": null,
+          "room": "114",
+          "start": "09:40",
+          "sub": null,
+          "teacher": "Кильсенбаев Э. Р.",
+          "title": "Судоустройство и правоохранительные органы"
         },
         {
-          "start": "11:20",
+          "additional": false,
+          "cancelled": false,
           "end": "12:50",
-          "title": "Судоустройство и правоохранительные органы",
-          "room": "114"
+          "group": "",
+          "note": "",
+          "num": 3,
+          "only_on": "",
+          "other_time": "11:20–12:50",
+          "parity": null,
+          "room": "114",
+          "start": "11:20",
+          "sub": null,
+          "teacher": "Кильсенбаев Э. Р.",
+          "title": "Судоустройство и правоохранительные органы"
         }
-      ]
+      ],
+      "name": "Суббота"
     }
-  ]
+  ],
+  "mode": "group",
+  "parity": "нечёт",
+  "title": "24Ю-3",
+  "week_no": 13,
+  "week_start": "2026-11-23"
 }
