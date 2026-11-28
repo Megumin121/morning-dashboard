@@ -1,0 +1,72 @@
+
+name: Diagnose college schedule source
+
+on:
+  workflow_dispatch:
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Inspect college schedule
+        run: |
+          python -m pip install requests beautifulsoup4
+
+          python - <<'PY'
+          import requests
+          from datetime import datetime, timedelta
+          from zoneinfo import ZoneInfo
+          from bs4 import BeautifulSoup
+          import re
+
+          now = datetime.now(ZoneInfo("Asia/Yekaterinburg"))
+          monday = now.date() - timedelta(days=now.weekday())
+          week = monday.isoformat()
+
+          url = (
+              "https://schedule.uksivt.ru/public"
+              f"?mode=group&id=67&semester=1&week={week}"
+          )
+
+          print("WEEK:", week)
+          print("URL:", url)
+
+          response = requests.get(
+              url,
+              headers={
+                  "User-Agent": "Mozilla/5.0",
+                  "Accept": "text/html"
+              },
+              timeout=40
+          )
+
+          print("STATUS:", response.status_code)
+          print("FINAL URL:", response.url)
+          print("CONTENT TYPE:", response.headers.get("content-type"))
+          response.raise_for_status()
+
+          soup = BeautifulSoup(response.text, "html.parser")
+
+          print("TITLE:", soup.title.get_text(" ", strip=True) if soup.title else "NO TITLE")
+          print("TABLES:", len(soup.find_all("table")))
+
+          print("SCRIPTS:")
+          for script in soup.find_all("script", src=True):
+              print(script.get("src"))
+
+          print("POSSIBLE DATA URLS:")
+          for value in re.findall(
+              r"""['"]([^'"]*(?:api|schedule|week|group)[^'"]*)['"]""",
+              response.text,
+              re.I
+          ):
+              if len(value) < 500:
+                  print(value)
+
+          print("PAGE TEXT:")
+          print(soup.get_text(" ", strip=True)[:9000])
+
+          for i, table in enumerate(soup.find_all("table")[:3], 1):
+              print(f"TABLE {i}:")
+              print(str(table)[:12000])
+          PY
