@@ -1,0 +1,704 @@
+{
+  "facts": [
+    "У осьминога три сердца: два перекачивают кровь через жабры, одно — к остальным органам.",
+    "Бананы с ботанической точки зрения относятся к ягодам, а клубника — нет.",
+    "У пчёл есть способность передавать другим пчёлам направление и расстояние до источника пищи с помощью движений.",
+    "Молния может нагревать окружающий воздух до температуры, значительно превышающей температуру поверхности Солнца.",
+    "Отпечаток языка, как и отпечатки пальцев, индивидуален.",
+    "У акул скелет состоит преимущественно из хряща, а не из костей.",
+    "Некоторые виды бамбука способны вырастать почти на метр за сутки при подходящих условиях.",
+    "Свет от Солнца достигает Земли примерно за восемь минут и двадцать секунд.",
+    "У коал уникальные рисунки на носу, которые могут различаться у разных особей.",
+    "Вода может одновременно существовать в виде льда, жидкости и пара при определённых температуре и давлении.",
+    "У жирафа столько же шейных позвонков, сколько у человека, — семь, но они намного крупнее.",
+    "Морские выдры иногда держатся за лапы во время отдыха на воде, чтобы не отплыть друг от друга.",
+    "Самая большая пустыня Земли — Антарктида: пустыни определяют по очень малому количеству осадков.",
+    "У бабочек вкусовые рецепторы расположены в том числе на лапках.",
+    "Некоторые черепахи могут получать часть кислорода через ткани в задней части тела, находясь под водой.",
+    "У воронов и некоторых других врановых птиц хорошо развиты память и способность решать задачи.",
+    "Эйфелева башня летом может становиться немного выше из-за теплового расширения металла.",
+    "На Венере сутки длиннее года: планета вращается вокруг своей оси медленнее, чем обращается вокруг Солнца.",
+    "У северных оленей глаза могут менять оттенок в зависимости от сезона, что помогает адаптироваться к освещению.",
+    "Мёд при правильном хранении может сохраняться очень долго благодаря низкому содержанию воды и кислотности.",
+    "У кошек есть особый орган, помогающий анализировать запахи, — вомероназальный орган.",
+    "Некоторые растения способны реагировать на прикосновение и быстро складывать листья, например мимоза стыдливая.",
+    "Голуби способны запоминать маршруты и ориентироваться по нескольким признакам окружающей среды.",
+    "Самый короткий день в году в Северном полушарии приходится на зимнее солнцестояние.",
+    "У морских звёзд нет мозга в привычном смысле, но есть нервное кольцо и нервные тяжи.",
+    "Звук распространяется в воде быстрее, чем в воздухе.",
+    "У слонов крупные уши помогают отдавать тепло, а не только слышать.",
+    "Некоторые грибы образуют под землёй обширные сети нитей, называемых гифами.",
+    "Луна постепенно удаляется от Земли примерно на несколько сантиметров в год.",
+    "В человеческом организме больше бактериальных клеток и клеток человека примерно сопоставимого порядка, а точное соотношение зависит от метода подсчёта."
+  ],
+  "legalTerms": [
+    {
+      "term": "Правоспособность",
+      "definition": "Способность лица иметь гражданские права и нести обязанности. У гражданина возникает с рождения и прекращается со смертью."
+    },
+    {
+      "term": "Дееспособность",
+      "definition": "Способность своими действиями приобретать и осуществлять права, создавать для себя обязанности и исполнять их."
+    },
+    {
+      "term": "Юридический факт",
+      "definition": "Жизненное обстоятельство, с которым норма права связывает возникновение, изменение или прекращение правоотношения."
+    },
+    {
+      "term": "Правоотношение",
+      "definition": "Общественное отношение, урегулированное нормами права, участники которого имеют взаимные субъективные права и юридические обязанности."
+    },
+    {
+      "term": "Вина",
+      "definition": "Психическое отношение лица к совершаемому деянию и его последствиям в форме умысла или неосторожности."
+    },
+    {
+      "term": "Умысел",
+      "definition": "Форма вины, при которой лицо осознаёт общественную опасность деяния, предвидит последствия и желает их наступления либо сознательно допускает их."
+    },
+    {
+      "term": "Неосторожность",
+      "definition": "Форма вины, при которой лицо предвидит возможность последствий, но без достаточных оснований рассчитывает их предотвратить, либо не предвидит их, хотя должно и могло."
+    },
+    {
+      "term": "Состав преступления",
+      "definition": "Совокупность предусмотренных уголовным законом объективных и субъективных признаков, необходимых для признания деяния преступлением."
+    },
+    {
+      "term": "Подследственность",
+      "definition": "Правила, определяющие, какой орган предварительного расследования уполномочен расследовать конкретное уголовное дело."
+    },
+    {
+      "term": "Подсудность",
+      "definition": "Совокупность правил, определяющих, какой суд должен рассматривать конкретное дело."
+    },
+    {
+      "term": "Доказательство",
+      "definition": "Сведения, на основе которых суд, прокурор, следователь или дознаватель устанавливает обстоятельства, имеющие значение для дела, в предусмотренном законом порядке."
+    },
+    {
+      "term": "Презумпция невиновности",
+      "definition": "Принцип, согласно которому обвиняемый считается невиновным, пока его виновность не доказана в установленном законом порядке и не установлена вступившим в силу приговором суда."
+    },
+    {
+      "term": "Иск",
+      "definition": "Обращённое к суду требование заинтересованного лица о защите нарушенного или оспариваемого права либо законного интереса."
+    },
+    {
+      "term": "Истец",
+      "definition": "Лицо, которое обращается в суд за защитой своего права или законного интереса либо в интересах которого предъявлен иск."
+    },
+    {
+      "term": "Ответчик",
+      "definition": "Лицо, к которому предъявлено исковое требование в гражданском или арбитражном процессе."
+    },
+    {
+      "term": "Сделка",
+      "definition": "Действие гражданина или юридического лица, направленное на установление, изменение или прекращение гражданских прав и обязанностей."
+    },
+    {
+      "term": "Ничтожная сделка",
+      "definition": "Сделка, недействительная независимо от признания её таковой судом, если закон не устанавливает иное."
+    },
+    {
+      "term": "Оспоримая сделка",
+      "definition": "Сделка, которая может быть признана недействительной судом по основаниям, предусмотренным законом."
+    },
+    {
+      "term": "Исковая давность",
+      "definition": "Срок для защиты права по иску лица, право которого нарушено. Общий срок по российскому гражданскому праву — три года."
+    },
+    {
+      "term": "Неустойка",
+      "definition": "Определённая законом или договором денежная сумма, которую должник обязан уплатить кредитору при нарушении обязательства."
+    },
+    {
+      "term": "Крайняя необходимость",
+      "definition": "Причинение вреда охраняемым законом интересам для устранения непосредственно угрожающей опасности, если её нельзя устранить иными средствами и не превышены установленные законом пределы."
+    },
+    {
+      "term": "Необходимая оборона",
+      "definition": "Правомерная защита личности, прав обороняющегося или других лиц, а также охраняемых законом интересов от общественно опасного посягательства с соблюдением установленных законом условий."
+    },
+    {
+      "term": "Административное правонарушение",
+      "definition": "Противоправное виновное действие или бездействие физического или юридического лица, за которое законом установлена административная ответственность."
+    },
+    {
+      "term": "Административная ответственность",
+      "definition": "Вид юридической ответственности, наступающий за совершение административного правонарушения и выражающийся в применении предусмотренного законом наказания."
+    },
+    {
+      "term": "Нормативный правовой акт",
+      "definition": "Официальный письменный документ, принятый компетентным органом в установленном порядке и содержащий правовые нормы."
+    },
+    {
+      "term": "Иерархия нормативных актов",
+      "definition": "Система соподчинения нормативных правовых актов по их юридической силе."
+    },
+    {
+      "term": "Юридическая ответственность",
+      "definition": "Применение к правонарушителю предусмотренных законом неблагоприятных мер государственного воздействия."
+    },
+    {
+      "term": "Медиация",
+      "definition": "Способ урегулирования спора при содействии независимого посредника — медиатора — на основе добровольности и сотрудничества сторон."
+    },
+    {
+      "term": "Обычай делового оборота",
+      "definition": "Сложившееся и широко применяемое в определённой сфере предпринимательской деятельности правило поведения, не предусмотренное законодательством."
+    },
+    {
+      "term": "Правовой статус",
+      "definition": "Закреплённое правом положение субъекта, включающее его права, обязанности, гарантии и ответственность."
+    }
+  ],
+  "languages": {
+    "en": [
+      {
+        "word": "Accurate",
+        "translation": "точный",
+        "example": "The report is accurate.",
+        "exampleTranslation": "Отчёт точный."
+      },
+      {
+        "word": "Achieve",
+        "translation": "достигать",
+        "example": "She worked hard to achieve her goal.",
+        "exampleTranslation": "Она усердно работала, чтобы достичь своей цели."
+      },
+      {
+        "word": "Advice",
+        "translation": "совет",
+        "example": "Thank you for your advice.",
+        "exampleTranslation": "Спасибо за твой совет."
+      },
+      {
+        "word": "Although",
+        "translation": "хотя",
+        "example": "Although it was late, we continued studying.",
+        "exampleTranslation": "Хотя было поздно, мы продолжили заниматься."
+      },
+      {
+        "word": "Arrange",
+        "translation": "организовывать; договариваться",
+        "example": "I will arrange a meeting.",
+        "exampleTranslation": "Я организую встречу."
+      },
+      {
+        "word": "Avoid",
+        "translation": "избегать",
+        "example": "Try to avoid mistakes.",
+        "exampleTranslation": "Старайся избегать ошибок."
+      },
+      {
+        "word": "Benefit",
+        "translation": "польза; преимущество",
+        "example": "Regular reading has many benefits.",
+        "exampleTranslation": "Регулярное чтение приносит много пользы."
+      },
+      {
+        "word": "Challenge",
+        "translation": "сложная задача; вызов",
+        "example": "Learning a language is a challenge.",
+        "exampleTranslation": "Изучение языка — непростая задача."
+      },
+      {
+        "word": "Consider",
+        "translation": "рассматривать; обдумывать",
+        "example": "We should consider every option.",
+        "exampleTranslation": "Нам следует рассмотреть каждый вариант."
+      },
+      {
+        "word": "Convenient",
+        "translation": "удобный",
+        "example": "This time is convenient for me.",
+        "exampleTranslation": "Это время мне удобно."
+      },
+      {
+        "word": "Create",
+        "translation": "создавать",
+        "example": "They want to create a new project.",
+        "exampleTranslation": "Они хотят создать новый проект."
+      },
+      {
+        "word": "Decision",
+        "translation": "решение",
+        "example": "It was a difficult decision.",
+        "exampleTranslation": "Это было трудное решение."
+      },
+      {
+        "word": "Develop",
+        "translation": "развивать; разрабатывать",
+        "example": "Reading helps develop critical thinking.",
+        "exampleTranslation": "Чтение помогает развивать критическое мышление."
+      },
+      {
+        "word": "Effort",
+        "translation": "усилие",
+        "example": "Your effort will make a difference.",
+        "exampleTranslation": "Твои усилия дадут результат."
+      },
+      {
+        "word": "Encourage",
+        "translation": "поддерживать; побуждать",
+        "example": "Good teachers encourage questions.",
+        "exampleTranslation": "Хорошие преподаватели поощряют вопросы."
+      },
+      {
+        "word": "Evidence",
+        "translation": "доказательство; свидетельство",
+        "example": "The lawyer examined the evidence.",
+        "exampleTranslation": "Юрист изучил доказательства."
+      },
+      {
+        "word": "Fair",
+        "translation": "справедливый",
+        "example": "Everyone deserves a fair chance.",
+        "exampleTranslation": "Каждый заслуживает справедливого шанса."
+      },
+      {
+        "word": "Improve",
+        "translation": "улучшать",
+        "example": "Practice can improve your skills.",
+        "exampleTranslation": "Практика может улучшить твои навыки."
+      },
+      {
+        "word": "Issue",
+        "translation": "вопрос; проблема",
+        "example": "We need to discuss this issue.",
+        "exampleTranslation": "Нам нужно обсудить этот вопрос."
+      },
+      {
+        "word": "Knowledge",
+        "translation": "знания",
+        "example": "Knowledge grows through experience.",
+        "exampleTranslation": "Знания растут благодаря опыту."
+      },
+      {
+        "word": "Notice",
+        "translation": "замечать; уведомление",
+        "example": "Did you notice the change?",
+        "exampleTranslation": "Ты заметил изменение?"
+      },
+      {
+        "word": "Opportunity",
+        "translation": "возможность",
+        "example": "This is a good opportunity to learn.",
+        "exampleTranslation": "Это хорошая возможность научиться."
+      },
+      {
+        "word": "Prevent",
+        "translation": "предотвращать",
+        "example": "Clear rules can prevent conflicts.",
+        "exampleTranslation": "Понятные правила могут предотвращать конфликты."
+      },
+      {
+        "word": "Purpose",
+        "translation": "цель; назначение",
+        "example": "What is the purpose of this rule?",
+        "exampleTranslation": "Какова цель этого правила?"
+      },
+      {
+        "word": "Require",
+        "translation": "требовать",
+        "example": "The task requires attention.",
+        "exampleTranslation": "Это задание требует внимания."
+      },
+      {
+        "word": "Respect",
+        "translation": "уважение; уважать",
+        "example": "We should respect different opinions.",
+        "exampleTranslation": "Нам следует уважать разные мнения."
+      },
+      {
+        "word": "Reliable",
+        "translation": "надёжный",
+        "example": "We need reliable information.",
+        "exampleTranslation": "Нам нужна надёжная информация."
+      },
+      {
+        "word": "Support",
+        "translation": "поддерживать; поддержка",
+        "example": "Friends can support each other.",
+        "exampleTranslation": "Друзья могут поддерживать друг друга."
+      },
+      {
+        "word": "Understand",
+        "translation": "понимать",
+        "example": "I understand the main idea.",
+        "exampleTranslation": "Я понимаю основную мысль."
+      },
+      {
+        "word": "Worth",
+        "translation": "стоящий; иметь ценность",
+        "example": "This book is worth reading.",
+        "exampleTranslation": "Эту книгу стоит прочитать."
+      }
+    ],
+    "es": [
+      {
+        "word": "Aprovechar",
+        "translation": "использовать с пользой",
+        "example": "Quiero aprovechar mi tiempo.",
+        "exampleTranslation": "Я хочу использовать своё время с пользой."
+      },
+      {
+        "word": "Aunque",
+        "translation": "хотя",
+        "example": "Aunque llueve, saldré.",
+        "exampleTranslation": "Хотя идёт дождь, я выйду."
+      },
+      {
+        "word": "Averiguar",
+        "translation": "выяснять; узнавать",
+        "example": "Necesito averiguar la verdad.",
+        "exampleTranslation": "Мне нужно выяснить правду."
+      },
+      {
+        "word": "Buscar",
+        "translation": "искать",
+        "example": "Estoy buscando mis llaves.",
+        "exampleTranslation": "Я ищу свои ключи."
+      },
+      {
+        "word": "Cambiar",
+        "translation": "менять",
+        "example": "Quiero cambiar mis hábitos.",
+        "exampleTranslation": "Я хочу изменить свои привычки."
+      },
+      {
+        "word": "Cercano",
+        "translation": "близкий",
+        "example": "Tenemos una fecha cercana.",
+        "exampleTranslation": "У нас скоро наступающая дата."
+      },
+      {
+        "word": "Claro",
+        "translation": "ясный; конечно",
+        "example": "Está claro para todos.",
+        "exampleTranslation": "Это всем понятно."
+      },
+      {
+        "word": "Conseguir",
+        "translation": "добиваться; получать",
+        "example": "Puedes conseguirlo con práctica.",
+        "exampleTranslation": "Ты можешь добиться этого практикой."
+      },
+      {
+        "word": "Cuidar",
+        "translation": "заботиться; беречь",
+        "example": "Debemos cuidar el medio ambiente.",
+        "exampleTranslation": "Мы должны беречь окружающую среду."
+      },
+      {
+        "word": "Desarrollar",
+        "translation": "развивать",
+        "example": "Quiero desarrollar nuevas habilidades.",
+        "exampleTranslation": "Я хочу развить новые навыки."
+      },
+      {
+        "word": "Dudar",
+        "translation": "сомневаться",
+        "example": "No debes dudar de ti mismo.",
+        "exampleTranslation": "Тебе не следует сомневаться в себе."
+      },
+      {
+        "word": "Elegir",
+        "translation": "выбирать",
+        "example": "Es difícil elegir una opción.",
+        "exampleTranslation": "Трудно выбрать один вариант."
+      },
+      {
+        "word": "Enseguida",
+        "translation": "сразу; немедленно",
+        "example": "Vuelvo enseguida.",
+        "exampleTranslation": "Я сейчас вернусь."
+      },
+      {
+        "word": "Equivocarse",
+        "translation": "ошибаться",
+        "example": "Todos podemos equivocarnos.",
+        "exampleTranslation": "Каждый из нас может ошибаться."
+      },
+      {
+        "word": "Explicar",
+        "translation": "объяснять",
+        "example": "¿Puedes explicar esta regla?",
+        "exampleTranslation": "Можешь объяснить это правило?"
+      },
+      {
+        "word": "Faltar",
+        "translation": "отсутствовать; не хватать",
+        "example": "Me falta una página.",
+        "exampleTranslation": "Мне не хватает одной страницы."
+      },
+      {
+        "word": "Lograr",
+        "translation": "достигать; суметь",
+        "example": "Logró terminar el trabajo.",
+        "exampleTranslation": "Ему удалось закончить работу."
+      },
+      {
+        "word": "Mejorar",
+        "translation": "улучшать",
+        "example": "Quiero mejorar mi español.",
+        "exampleTranslation": "Я хочу улучшить свой испанский."
+      },
+      {
+        "word": "Mientras",
+        "translation": "пока; в то время как",
+        "example": "Escucho música mientras estudio.",
+        "exampleTranslation": "Я слушаю музыку, пока занимаюсь."
+      },
+      {
+        "word": "Parecer",
+        "translation": "казаться",
+        "example": "Parece una buena idea.",
+        "exampleTranslation": "Это кажется хорошей идеей."
+      },
+      {
+        "word": "Pensamiento",
+        "translation": "мысль; мышление",
+        "example": "Es un pensamiento interesante.",
+        "exampleTranslation": "Это интересная мысль."
+      },
+      {
+        "word": "Permitir",
+        "translation": "разрешать; позволять",
+        "example": "No está permitido entrar aquí.",
+        "exampleTranslation": "Здесь не разрешено входить."
+      },
+      {
+        "word": "Proponer",
+        "translation": "предлагать",
+        "example": "Quiero proponer otra solución.",
+        "exampleTranslation": "Я хочу предложить другое решение."
+      },
+      {
+        "word": "Recordar",
+        "translation": "помнить; вспоминать",
+        "example": "Debo recordar esta fecha.",
+        "exampleTranslation": "Я должен запомнить эту дату."
+      },
+      {
+        "word": "Requisito",
+        "translation": "требование; условие",
+        "example": "Este documento es un requisito.",
+        "exampleTranslation": "Этот документ является обязательным условием."
+      },
+      {
+        "word": "Resolver",
+        "translation": "решать; разрешать",
+        "example": "Tenemos que resolver el problema.",
+        "exampleTranslation": "Нам нужно решить проблему."
+      },
+      {
+        "word": "Sencillo",
+        "translation": "простой",
+        "example": "La explicación es sencilla.",
+        "exampleTranslation": "Объяснение простое."
+      },
+      {
+        "word": "Sin embargo",
+        "translation": "однако",
+        "example": "Estaba cansado; sin embargo, continuó.",
+        "exampleTranslation": "Он устал, однако продолжил."
+      },
+      {
+        "word": "Suponer",
+        "translation": "предполагать",
+        "example": "No debemos suponer sin pruebas.",
+        "exampleTranslation": "Не следует делать предположения без доказательств."
+      },
+      {
+        "word": "Valorar",
+        "translation": "ценить; оценивать",
+        "example": "Debemos valorar nuestro tiempo.",
+        "exampleTranslation": "Нам следует ценить своё время."
+      }
+    ],
+    "fr": [
+      {
+        "word": "Accueillir",
+        "translation": "принимать; встречать",
+        "example": "Nous allons accueillir les invités.",
+        "exampleTranslation": "Мы будем встречать гостей."
+      },
+      {
+        "word": "Améliorer",
+        "translation": "улучшать",
+        "example": "Je veux améliorer mon français.",
+        "exampleTranslation": "Я хочу улучшить свой французский."
+      },
+      {
+        "word": "Apprendre",
+        "translation": "учить; узнавать",
+        "example": "J'aime apprendre de nouvelles choses.",
+        "exampleTranslation": "Мне нравится узнавать новое."
+      },
+      {
+        "word": "Assez",
+        "translation": "достаточно",
+        "example": "C'est assez simple.",
+        "exampleTranslation": "Это достаточно просто."
+      },
+      {
+        "word": "Attendre",
+        "translation": "ждать",
+        "example": "Je vais attendre ici.",
+        "exampleTranslation": "Я подожду здесь."
+      },
+      {
+        "word": "Avoir besoin de",
+        "translation": "нуждаться в",
+        "example": "J'ai besoin de temps.",
+        "exampleTranslation": "Мне нужно время."
+      },
+      {
+        "word": "Choisir",
+        "translation": "выбирать",
+        "example": "Il faut choisir une réponse.",
+        "exampleTranslation": "Нужно выбрать ответ."
+      },
+      {
+        "word": "Comprendre",
+        "translation": "понимать",
+        "example": "Je comprends la question.",
+        "exampleTranslation": "Я понимаю вопрос."
+      },
+      {
+        "word": "Conseil",
+        "translation": "совет",
+        "example": "Merci pour votre conseil.",
+        "exampleTranslation": "Спасибо за ваш совет."
+      },
+      {
+        "word": "Construire",
+        "translation": "строить; создавать",
+        "example": "Ils veulent construire une maison.",
+        "exampleTranslation": "Они хотят построить дом."
+      },
+      {
+        "word": "Défendre",
+        "translation": "защищать",
+        "example": "La loi doit défendre les droits.",
+        "exampleTranslation": "Закон должен защищать права."
+      },
+      {
+        "word": "Devenir",
+        "translation": "становиться",
+        "example": "Elle veut devenir avocate.",
+        "exampleTranslation": "Она хочет стать адвокатом."
+      },
+      {
+        "word": "Éviter",
+        "translation": "избегать",
+        "example": "Il faut éviter les erreurs.",
+        "exampleTranslation": "Нужно избегать ошибок."
+      },
+      {
+        "word": "Expérience",
+        "translation": "опыт",
+        "example": "Cette expérience est utile.",
+        "exampleTranslation": "Этот опыт полезен."
+      },
+      {
+        "word": "Façon",
+        "translation": "способ; манера",
+        "example": "C'est une bonne façon d'apprendre.",
+        "exampleTranslation": "Это хороший способ учиться."
+      },
+      {
+        "word": "Fiable",
+        "translation": "надёжный",
+        "example": "C'est une source fiable.",
+        "exampleTranslation": "Это надёжный источник."
+      },
+      {
+        "word": "Gagner",
+        "translation": "выигрывать; зарабатывать",
+        "example": "Elle veut gagner du temps.",
+        "exampleTranslation": "Она хочет сэкономить время."
+      },
+      {
+        "word": "Cependant",
+        "translation": "однако",
+        "example": "Il est jeune, cependant très sérieux.",
+        "exampleTranslation": "Он молод, однако очень серьёзен."
+      },
+      {
+        "word": "Liberté",
+        "translation": "свобода",
+        "example": "La liberté est un droit important.",
+        "exampleTranslation": "Свобода — важное право."
+      },
+      {
+        "word": "Manquer",
+        "translation": "не хватать; скучать",
+        "example": "Il me manque une information.",
+        "exampleTranslation": "Мне не хватает одной информации."
+      },
+      {
+        "word": "Moyen",
+        "translation": "средство; способ",
+        "example": "C'est un moyen efficace.",
+        "exampleTranslation": "Это эффективное средство."
+      },
+      {
+        "word": "Obtenir",
+        "translation": "получать; добиваться",
+        "example": "Elle veut obtenir une réponse.",
+        "exampleTranslation": "Она хочет получить ответ."
+      },
+      {
+        "word": "Pourtant",
+        "translation": "тем не менее; однако",
+        "example": "Il pleut, pourtant nous sortons.",
+        "exampleTranslation": "Идёт дождь, тем не менее мы выходим."
+      },
+      {
+        "word": "Prévenir",
+        "translation": "предупреждать",
+        "example": "Merci de me prévenir à l'avance.",
+        "exampleTranslation": "Спасибо, что предупредил меня заранее."
+      },
+      {
+        "word": "Réussir",
+        "translation": "добиваться успеха; удаваться",
+        "example": "Tu peux réussir cet examen.",
+        "exampleTranslation": "Ты можешь успешно сдать этот экзамен."
+      },
+      {
+        "word": "Règle",
+        "translation": "правило",
+        "example": "Cette règle est importante.",
+        "exampleTranslation": "Это правило важно."
+      },
+      {
+        "word": "Soutenir",
+        "translation": "поддерживать",
+        "example": "Les amis doivent se soutenir.",
+        "exampleTranslation": "Друзья должны поддерживать друг друга."
+      },
+      {
+        "word": "Toutefois",
+        "translation": "тем не менее",
+        "example": "Le trajet est long; toutefois, il est agréable.",
+        "exampleTranslation": "Путь долгий, тем не менее приятный."
+      },
+      {
+        "word": "Valeur",
+        "translation": "ценность; значение",
+        "example": "Cette idée a beaucoup de valeur.",
+        "exampleTranslation": "Эта идея имеет большую ценность."
+      },
+      {
+        "word": "Vérifier",
+        "translation": "проверять",
+        "example": "Je vais vérifier le document.",
+        "exampleTranslation": "Я проверю документ."
+      }
+    ]
+  }
+}
